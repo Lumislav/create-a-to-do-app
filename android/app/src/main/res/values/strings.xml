@@ -46,12 +46,34 @@
     <string name="action_remove_bg">Remove Background (AI)</string>
     <string name="action_ai_upscale">2x AI Upscale</string>
     <string name="action_auto_color">Auto Color</string>
+    <string name="action_import_media">Import Media</string>
+    <string name="action_add_line">+ Add Subtitle Line</string>
+
+    <!-- Editors & Controls -->
+    <string name="bg_transparent">Transparent</string>
+    <string name="bg_color">Color</string>
+    <string name="bg_gradient">Gradient</string>
+    <string name="bg_blur">Blur</string>
+    <string name="brightness">Brightness</string>
+    <string name="contrast">Contrast</string>
+    <string name="saturation">Saturation</string>
+    <string name="temperature">Temperature</string>
+    <string name="sharpness">Sharpness</string>
+    <string name="aspect_ratio">Aspect Ratio</string>
+    <string name="trim_video">Trim Timeline</string>
+    <string name="speed">Playback Speed</string>
+    <string name="volume">Volume</string>
+    <string name="templates">Templates</string>
+    <string name="layers">Layers</string>
 
     <!-- Settings -->
     <string name="settings_theme">Theme Mode</string>
+    <string name="settings_theme_dark">Dark Mode</string>
+    <string name="settings_theme_light">Light Mode</string>
     <string name="settings_language">Language</string>
     <string name="settings_ai_mode">AI Engine Mode</string>
     <string name="settings_backend_url">FastAPI Backend URL</string>
     <string name="settings_test_connection">Test Server Connection</string>
     <string name="version_info">Version: 1.0.0 (Release Ready)</string>
+    <string name="google_play_ready">Prepared for Google Play publication</string>
 </resources>
