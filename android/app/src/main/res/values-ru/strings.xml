@@ -46,12 +46,34 @@
     <string name="action_remove_bg">Удалить фон (AI)</string>
     <string name="action_ai_upscale">2x AI Upscale</string>
     <string name="action_auto_color">Авто-цвет</string>
+    <string name="action_import_media">Выбрать файл</string>
+    <string name="action_add_line">+ Добавить строку субтитров</string>
+
+    <!-- Editors & Controls -->
+    <string name="bg_transparent">Прозрачный</string>
+    <string name="bg_color">Цвет</string>
+    <string name="bg_gradient">Градиент</string>
+    <string name="bg_blur">Размытие</string>
+    <string name="brightness">Яркость</string>
+    <string name="contrast">Контраст</string>
+    <string name="saturation">Насыщенность</string>
+    <string name="temperature">Температура</string>
+    <string name="sharpness">Резкость</string>
+    <string name="aspect_ratio">Формат кадра</string>
+    <string name="trim_video">Обрезка по времени</string>
+    <string name="speed">Скорость воспроизведения</string>
+    <string name="volume">Громкость звука</string>
+    <string name="templates">Шаблоны</string>
+    <string name="layers">Слои</string>
 
     <!-- Settings -->
     <string name="settings_theme">Тема оформления</string>
+    <string name="settings_theme_dark">Тёмная тема</string>
+    <string name="settings_theme_light">Светлая тема</string>
     <string name="settings_language">Язык приложения</string>
     <string name="settings_ai_mode">ИИ-движок и Сервер</string>
     <string name="settings_backend_url">URL FastAPI Backend</string>
     <string name="settings_test_connection">Проверить связь с сервером</string>
     <string name="version_info">Версия: 1.0.0 (Release Ready)</string>
+    <string name="google_play_ready">Подготовлен для публикации в Google Play</string>
 </resources>
