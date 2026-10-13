@@ -81,6 +81,21 @@ class MildyAppManager {
         this.navigateTo('tools');
       });
     }
+
+    // Open Settings Button & Badge
+    document.querySelectorAll('[data-action="open-settings"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.navigateTo('settings');
+      });
+    });
+
+    const backendBadge = document.getElementById('backendStatusBadge');
+    if (backendBadge) {
+      backendBadge.style.cursor = 'pointer';
+      backendBadge.addEventListener('click', () => {
+        this.navigateTo('settings');
+      });
+    }
   }
 
   navigateTo(screenId) {
