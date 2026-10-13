@@ -760,14 +760,44 @@
       </div>
 
       <!-- 4. Video Compressor -->
-      <div class="editor-panel">
+      <div class="editor-panel" style="margin-bottom: 14px;">
         <h3 class="section-title"><i class="fa-solid fa-compress"></i> <span data-i18n="toolCompressorTitle">Video Compressor</span></h3>
         <select id="compResSelect" class="select-input">
           <option value="1080p">1080p Full HD (Оптимизированный битрейт)</option>
           <option value="720p" selected>720p HD (Рекомендуется для Reels/Shorts)</option>
           <option value="480p">480p (Максимальное сжатие)</option>
         </select>
+        <p id="compSizeEst" style="font-size:12px; color:var(--text-muted); margin: 6px 0;">Примерный размер после сжатия: ~12.4 MB (-48%)</p>
         <button id="btnStartCompress" class="btn-primary"><i class="fa-solid fa-play"></i> <span>Запустить сжатие</span></button>
+      </div>
+
+      <!-- 5. Audio Extractor -->
+      <div class="editor-panel" style="margin-bottom: 14px;">
+        <h3 class="section-title"><i class="fa-solid fa-music"></i> <span data-i18n="toolAudioExtractTitle">Audio Extractor</span></h3>
+        <p style="font-size:11px;color:var(--text-muted);" data-i18n="toolAudioExtractDesc">Извлечение звуковой дорожки из видео в MP3/WAV</p>
+        <input type="file" id="audioExtractVideoInput" accept="video/*" style="display:none;">
+        <button class="btn-secondary" onclick="document.getElementById('audioExtractVideoInput').click()">
+          <i class="fa-solid fa-file-video"></i> <span>Выбрать видео для извлечения звука</span>
+        </button>
+        <div id="audioExtractStatus" style="font-size:12px;color:var(--accent-bright);margin:4px 0;display:none;"></div>
+        <button id="btnExtractAudioUtil" class="btn-primary">
+          <i class="fa-solid fa-download"></i> <span>Извлечь и скачать аудио (.WAV)</span>
+        </button>
+      </div>
+
+      <!-- 6. Creator Presets -->
+      <div class="editor-panel">
+        <h3 class="section-title"><i class="fa-solid fa-sliders"></i> <span data-i18n="toolPresetsTitle">Creator Presets</span></h3>
+        <p style="font-size:11px;color:var(--text-muted);" data-i18n="toolPresetsDesc">Сохранение и быстрое применение авторских настроек</p>
+        <select id="creatorPresetSelect" class="select-input">
+          <option value="tiktok_viral">TikTok Viral (9:16 + Яркий контраст + Желтые караоке-субтитры)</option>
+          <option value="yt_cinematic">YouTube Cinematic (16:9 + Теплый свет + Minimal субтитры)</option>
+          <option value="reels_aesthetic">Instagram Reels Aesthetic (9:16 + Мягкое свечение + Neon)</option>
+        </select>
+        <div class="actions-row" style="margin-top: 8px;">
+          <button id="btnApplyPreset" class="btn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> <span>Применить пресет</span></button>
+          <button id="btnSaveCustomPreset" class="btn-secondary"><i class="fa-solid fa-bookmark"></i> <span>Сохранить текущие настройки</span></button>
+        </div>
       </div>
     </section>
 
