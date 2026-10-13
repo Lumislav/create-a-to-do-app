@@ -724,10 +724,16 @@
       <div class="editor-panel" style="margin-bottom: 14px;">
         <h3 class="section-title"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="toolWatermarkTitle">Watermark Studio</span></h3>
         <canvas id="watermarkCanvas" style="width:100%;height:160px;border-radius:var(--radius-md);border:1px solid var(--border-color);"></canvas>
-        <input type="file" id="wmFileInput" accept="image/*" style="display:none;">
-        <button class="btn-secondary" onclick="document.getElementById('wmFileInput').click()">
-          <i class="fa-solid fa-image"></i> <span>Загрузить фото для водяного знака</span>
-        </button>
+        <div class="actions-row">
+          <input type="file" id="wmFileInput" accept="image/*" style="display:none;">
+          <button class="btn-secondary" onclick="document.getElementById('wmFileInput').click()">
+            <i class="fa-solid fa-image"></i> <span>Загрузить фото</span>
+          </button>
+          <input type="file" id="wmLogoInput" accept="image/*" style="display:none;">
+          <button class="btn-secondary" onclick="document.getElementById('wmLogoInput').click()">
+            <i class="fa-solid fa-stamp"></i> <span>Логотип</span>
+          </button>
+        </div>
         <input type="text" id="wmTextInput" class="text-input" value="© Mildy Creator">
         <div class="actions-row">
           <select id="wmPositionSelect" class="select-input">
@@ -743,10 +749,16 @@
       <!-- 3. Image Resizer -->
       <div class="editor-panel" style="margin-bottom: 14px;">
         <h3 class="section-title"><i class="fa-solid fa-crop-simple"></i> <span data-i18n="toolResizerTitle">Image Resizer</span></h3>
-        <input type="file" id="resizerFileInput" accept="image/*" style="display:none;">
-        <button class="btn-secondary" onclick="document.getElementById('resizerFileInput').click()">
-          <i class="fa-solid fa-image"></i> <span>Выбрать фото для изменения размера</span>
-        </button>
+        <div class="actions-row">
+          <input type="file" id="resizerFileInput" accept="image/*" style="display:none;">
+          <button class="btn-secondary" onclick="document.getElementById('resizerFileInput').click()">
+            <i class="fa-solid fa-image"></i> <span>Выбрать фото</span>
+          </button>
+          <input type="file" id="resizerBatchInput" accept="image/*" multiple style="display:none;">
+          <button class="btn-secondary" onclick="document.getElementById('resizerBatchInput').click()">
+            <i class="fa-solid fa-images"></i> <span>Пакетно (ZIP/Batch)</span>
+          </button>
+        </div>
         <p id="resizerOriginalInfo" style="font-size:11px;color:var(--text-muted);"></p>
         <div class="actions-row">
           <input type="number" id="resizerWidth" class="text-input" placeholder="Ширина (px)" value="1920">

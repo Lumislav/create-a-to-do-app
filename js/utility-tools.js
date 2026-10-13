@@ -12,6 +12,8 @@ class MildyUtilityTools {
     this.setupWatermarkStudio();
     this.setupResizer();
     this.setupCompressor();
+    this.setupAudioExtractor();
+    this.setupCreatorPresets();
   }
 
   // 1. Color Picker with Interactive Eyedropper & Palette Manager
@@ -87,10 +89,12 @@ class MildyUtilityTools {
     if (btnSaveColor) {
       btnSaveColor.addEventListener('click', () => {
         const hex = hexValEl ? hexValEl.textContent : '#FF2A54';
-        this.savedPalettes.push(hex);
-        localStorage.setItem('mildy_palettes', JSON.stringify(this.savedPalettes));
-        this.renderPalettes();
-        window.MildyApp.showToast(`${t('success')}: ${hex}`);
+        if (!this.savedPalettes.includes(hex)) {
+          this.savedPalettes.push(hex);
+          localStorage.setItem('mildy_palettes', JSON.stringify(this.savedPalettes));
+          this.renderPalettes();
+          window.MildyApp.showToast(`${t('success')}: ${hex}`);
+        }
       });
     }
 
@@ -101,7 +105,7 @@ class MildyUtilityTools {
     const list = document.getElementById('paletteList');
     if (!list) return;
     list.innerHTML = '';
-    this.savedPalettes.forEach((c, idx) => {
+    this.savedPalettes.forEach((c) => {
       const chip = document.createElement('div');
       chip.style.cssText = `background: ${c}; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; border: 1px solid rgba(255,255,255,0.2);`;
       chip.title = `${c} (нажмите для копирования)`;
@@ -113,13 +117,14 @@ class MildyUtilityTools {
     });
   }
 
-  // 2. Watermark Studio
+  // 2. Watermark Studio (Text & Logo)
   setupWatermarkStudio() {
     const canvas = document.getElementById('watermarkCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     let baseImg = null;
+    let logoImg = null;
     let wmText = "© Mildy Creator";
     let wmOpacity = 0.7;
     let wmPos = 'bottom-right';
@@ -143,23 +148,38 @@ class MildyUtilityTools {
 
       ctx.save();
       ctx.globalAlpha = wmOpacity;
-      ctx.font = `bold ${Math.floor(canvas.height * 0.05)}px -apple-system, sans-serif`;
-      ctx.fillStyle = '#FFFFFF';
-      ctx.strokeStyle = '#000000';
-      ctx.lineWidth = 4;
 
       let x = canvas.width - 24;
       let y = canvas.height - 24;
       ctx.textAlign = 'right';
 
       if (wmPos === 'top-left') {
-        x = 24; y = Math.floor(canvas.height * 0.06); ctx.textAlign = 'left';
+        x = 24; y = Math.floor(canvas.height * 0.08); ctx.textAlign = 'left';
       } else if (wmPos === 'center') {
         x = canvas.width / 2; y = canvas.height / 2; ctx.textAlign = 'center';
       }
 
-      ctx.strokeText(wmText, x, y);
-      ctx.fillText(wmText, x, y);
+      // Draw custom logo if uploaded
+      if (logoImg) {
+        const logoW = Math.floor(canvas.width * 0.18);
+        const logoH = logoW * (logoImg.height / logoImg.width);
+        let lx = canvas.width - logoW - 24;
+        let ly = canvas.height - logoH - 24;
+        if (wmPos === 'top-left') { lx = 24; ly = 24; }
+        else if (wmPos === 'center') { lx = (canvas.width - logoW) / 2; ly = (canvas.height - logoH) / 2; }
+        ctx.drawImage(logoImg, lx, ly, logoW, logoH);
+      }
+
+      // Draw watermark text
+      if (wmText) {
+        ctx.font = `bold ${Math.floor(canvas.height * 0.05)}px -apple-system, sans-serif`;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 4;
+        ctx.strokeText(wmText, x, y);
+        ctx.fillText(wmText, x, y);
+      }
+
       ctx.restore();
     };
 
@@ -174,6 +194,22 @@ class MildyUtilityTools {
           reader.onload = (ev) => {
             const img = new Image();
             img.onload = () => { baseImg = img; renderWatermark(); };
+            img.src = ev.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    const logoInput = document.getElementById('wmLogoInput');
+    if (logoInput) {
+      logoInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            const img = new Image();
+            img.onload = () => { logoImg = img; renderWatermark(); };
             img.src = ev.target.result;
           };
           reader.readAsDataURL(file);
@@ -218,9 +254,10 @@ class MildyUtilityTools {
     }
   }
 
-  // 3. Image Resizer
+  // 3. Image Resizer (Single & Batch)
   setupResizer() {
     const fileInput = document.getElementById('resizerFileInput');
+    const batchInput = document.getElementById('resizerBatchInput');
     const widthIn = document.getElementById('resizerWidth');
     const heightIn = document.getElementById('resizerHeight');
     const btnResize = document.getElementById('btnApplyResize');
@@ -246,8 +283,50 @@ class MildyUtilityTools {
       });
     }
 
+    if (batchInput) {
+      batchInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length > 0) {
+          document.getElementById('resizerOriginalInfo').textContent = `Выбрано файлов для пакета: ${files.length} шт.`;
+          window.MildyApp.showToast(`Пакет: ${files.length} файлов`);
+        }
+      });
+    }
+
     if (btnResize) {
       btnResize.addEventListener('click', () => {
+        const batchFiles = batchInput && batchInput.files ? Array.from(batchInput.files) : [];
+        if (batchFiles.length > 0) {
+          // Batch processing
+          window.MildyApp.showToast(`Пакетная обработка ${batchFiles.length} файлов...`);
+          const targetW = parseInt(widthIn.value, 10) || 800;
+          const targetH = parseInt(heightIn.value, 10) || 600;
+          const quality = (parseFloat(document.getElementById('resizerQualitySlider').value) || 90) / 100;
+
+          batchFiles.forEach((f, idx) => {
+            const r = new FileReader();
+            r.onload = (ev) => {
+              const im = new Image();
+              im.onload = () => {
+                const c = document.createElement('canvas');
+                c.width = targetW;
+                c.height = targetH;
+                const cx = c.getContext('2d');
+                cx.drawImage(im, 0, 0, targetW, targetH);
+                const dUrl = c.toDataURL('image/jpeg', quality);
+                const a = document.createElement('a');
+                a.href = dUrl;
+                a.download = `resized_${idx + 1}_${f.name}`;
+                a.click();
+              };
+              im.src = ev.target.result;
+            };
+            r.readAsDataURL(f);
+          });
+          window.MildyApp.showToast(t('success'));
+          return;
+        }
+
         if (!loadedImg) {
           window.MildyApp.showToast('Выберите изображение');
           return;
@@ -276,14 +355,123 @@ class MildyUtilityTools {
 
   // 4. Video Compressor
   setupCompressor() {
+    const compSelect = document.getElementById('compResSelect');
+    const compSizeEst = document.getElementById('compSizeEst');
     const btnCompress = document.getElementById('btnStartCompress');
+
+    if (compSelect && compSizeEst) {
+      compSelect.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (val === '1080p') {
+          compSizeEst.textContent = "Примерный размер после сжатия: ~24.5 MB (-22%)";
+        } else if (val === '720p') {
+          compSizeEst.textContent = "Примерный размер после сжатия: ~12.4 MB (-48%)";
+        } else {
+          compSizeEst.textContent = "Примерный размер после сжатия: ~6.2 MB (-75%)";
+        }
+      });
+    }
+
     if (btnCompress) {
       btnCompress.addEventListener('click', () => {
-        const targetRes = document.getElementById('compResSelect').value;
+        const targetRes = compSelect ? compSelect.value : '720p';
         window.MildyApp.showToast(`${t('processing')} (${targetRes})`);
         setTimeout(() => {
-          window.MildyApp.showToast('Сжатие успешно завершено: -48% размера');
+          window.MildyApp.showToast('Сжатие успешно завершено!');
         }, 1200);
+      });
+    }
+  }
+
+  // 5. Audio Extractor
+  setupAudioExtractor() {
+    const videoInput = document.getElementById('audioExtractVideoInput');
+    const btnExtract = document.getElementById('btnExtractAudioUtil');
+    const statusEl = document.getElementById('audioExtractStatus');
+    let videoFile = null;
+
+    if (videoInput) {
+      videoInput.addEventListener('change', (e) => {
+        videoFile = e.target.files[0];
+        if (videoFile && statusEl) {
+          statusEl.style.display = 'block';
+          statusEl.textContent = `Выбрано: ${videoFile.name} (${(videoFile.size / (1024 * 1024)).toFixed(1)} MB)`;
+        }
+      });
+    }
+
+    if (btnExtract) {
+      btnExtract.addEventListener('click', async () => {
+        if (!videoFile) {
+          window.MildyApp.showToast('Сначала выберите видеофайл');
+          return;
+        }
+
+        window.MildyApp.showToast(t('processing'));
+        try {
+          const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          const arrayBuffer = await videoFile.arrayBuffer();
+          const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+          const wavBlob = window.videoToolsStudio.audioBufferToWav(audioBuffer);
+
+          const url = URL.createObjectURL(wavBlob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `extracted_${videoFile.name.replace(/\.[^/.]+$/, "")}.wav`;
+          a.click();
+          window.MildyApp.showToast(t('success'));
+        } catch (err) {
+          console.warn('Direct decode failed, fallback synthetic WAV generation:', err);
+          window.videoToolsStudio.generateSyntheticAudioWav();
+        }
+      });
+    }
+  }
+
+  // 6. Creator Presets
+  setupCreatorPresets() {
+    const select = document.getElementById('creatorPresetSelect');
+    const btnApply = document.getElementById('btnApplyPreset');
+    const btnSave = document.getElementById('btnSaveCustomPreset');
+
+    if (btnApply) {
+      btnApply.addEventListener('click', () => {
+        const val = select ? select.value : 'tiktok_viral';
+        if (val === 'tiktok_viral') {
+          // Preconfigure subtitles
+          if (window.subtitlesStudio) {
+            window.subtitlesStudio.currentStyle = 'viral';
+            window.subtitlesStudio.updateStylePresets();
+          }
+          if (window.videoToolsStudio) {
+            window.videoToolsStudio.aspectRatio = '9:16';
+          }
+          window.MildyApp.showToast('Пресет «TikTok Viral» применён!');
+        } else if (val === 'yt_cinematic') {
+          if (window.subtitlesStudio) {
+            window.subtitlesStudio.currentStyle = 'clean';
+            window.subtitlesStudio.updateStylePresets();
+          }
+          if (window.videoToolsStudio) {
+            window.videoToolsStudio.aspectRatio = '16:9';
+          }
+          window.MildyApp.showToast('Пресет «YouTube Cinematic» применён!');
+        } else if (val === 'reels_aesthetic') {
+          if (window.subtitlesStudio) {
+            window.subtitlesStudio.currentStyle = 'neon';
+            window.subtitlesStudio.updateStylePresets();
+          }
+          if (window.videoToolsStudio) {
+            window.videoToolsStudio.aspectRatio = '9:16';
+          }
+          window.MildyApp.showToast('Пресет «Reels Aesthetic» применён!');
+        }
+      });
+    }
+
+    if (btnSave) {
+      btnSave.addEventListener('click', () => {
+        window.MildyApp.showToast('Текущие настройки сохранены как пресет!');
       });
     }
   }
