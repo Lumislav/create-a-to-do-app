@@ -1,5 +1,808 @@
 <!DOCTYPE html>
-<html>
-<head><title>Test</title></head>
-<body><h1>Hello Mildy</h1></body>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mildy — Студия для авторов контента | PALIMSON Group</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="app">
+    <!-- Top Bar Header -->
+    <header class="app-header">
+      <div class="brand-wrapper">
+        <img src="assets/logo.svg" alt="Mildy" class="brand-logo">
+        <div class="brand-text">
+          <h1>Mildy</h1>
+          <div class="brand-sub">PALIMSON GROUP</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div id="backendStatusBadge" class="status-pill status-offline">
+          <span class="status-dot"></span>
+          <span>On-Device Engine</span>
+        </div>
+        <button class="icon-btn" data-screen="settings" title="Settings" data-action="open-settings">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- SCREEN 1: HOME -->
+    <main id="screen-home" class="screen active">
+      <div class="hero-card">
+        <h2 class="hero-title" data-i18n="greeting">Привет, Креатор!</h2>
+        <p class="hero-subtitle" data-i18n="greetingSub">Что создадим сегодня?</p>
+        <button id="btnNewProject" class="btn-primary-large">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span data-i18n="newProject">Новый проект</span>
+        </button>
+      </div>
+
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-bolt"></i>
+          <span data-i18n="quickTools">Быстрые действия</span>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        <div class="quick-card" data-open-tool="subtitles">
+          <div class="icon-box icon-subtitles">
+            <i class="fa-solid fa-closed-captioning"></i>
+          </div>
+          <div class="quick-card-info">
+            <h3 data-i18n="toolSubtitlesTitle">Автосубтитры</h3>
+            <p>Word-level karaoke</p>
+          </div>
+        </div>
+
+        <div class="quick-card" data-open-tool="photofix">
+          <div class="icon-box icon-photo">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <div class="quick-card-info">
+            <h3 data-i18n="toolPhotoFixTitle">PhotoFix</h3>
+            <p>Удалить фон & AI</p>
+          </div>
+        </div>
+
+        <div class="quick-card" data-open-tool="videotools">
+          <div class="icon-box icon-video">
+            <i class="fa-solid fa-video"></i>
+          </div>
+          <div class="quick-card-info">
+            <h3 data-i18n="toolVideoToolsTitle">Видео студия</h3>
+            <p>9:16 Shorts & Trimming</p>
+          </div>
+        </div>
+
+        <div class="quick-card" data-open-tool="thumbnail">
+          <div class="icon-box icon-thumb">
+            <i class="fa-solid fa-image"></i>
+          </div>
+          <div class="quick-card-info">
+            <h3 data-i18n="toolThumbnailTitle">Thumbnail Studio</h3>
+            <p>Обложки & Слои</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span data-i18n="recentProjects">Недавние проекты</span>
+        </div>
+      </div>
+      <div id="recentProjectsContainer" class="recent-scroll">
+        <!-- Rendered dynamically -->
+      </div>
+    </main>
+
+    <!-- SCREEN 2: ALL TOOLS -->
+    <section id="screen-tools" class="screen">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-toolbox"></i>
+          <span data-i18n="allTools">Все инструменты</span>
+        </div>
+      </div>
+      <div class="tools-list">
+        <div class="tool-row-card" data-open-tool="subtitles">
+          <div class="tool-row-icon icon-subtitles"><i class="fa-solid fa-closed-captioning"></i></div>
+          <div class="tool-row-content">
+            <h3 data-i18n="toolSubtitlesTitle">Автосубтитры</h3>
+            <p data-i18n="toolSubtitlesDesc">Умные субтитры с синхронизацией по словам, стилями и анимацией</p>
+          </div>
+          <i class="fa-solid fa-chevron-right tool-row-arrow"></i>
+        </div>
+
+        <div class="tool-row-card" data-open-tool="photofix">
+          <div class="tool-row-icon icon-photo"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <div class="tool-row-content">
+            <h3 data-i18n="toolPhotoFixTitle">PhotoFix</h3>
+            <p data-i18n="toolPhotoFixDesc">Удаление фона, улучшение деталей, цветокоррекция и обрезка</p>
+          </div>
+          <i class="fa-solid fa-chevron-right tool-row-arrow"></i>
+        </div>
+
+        <div class="tool-row-card" data-open-tool="videotools">
+          <div class="tool-row-icon icon-video"><i class="fa-solid fa-video"></i></div>
+          <div class="tool-row-content">
+            <h3 data-i18n="toolVideoToolsTitle">Видео инструменты</h3>
+            <p data-i18n="toolVideoToolsDesc">Обрезка, соотношение 9:16/16:9, извлечение звука, кадры и скорость</p>
+          </div>
+          <i class="fa-solid fa-chevron-right tool-row-arrow"></i>
+        </div>
+
+        <div class="tool-row-card" data-open-tool="thumbnail">
+          <div class="tool-row-icon icon-thumb"><i class="fa-solid fa-image"></i></div>
+          <div class="tool-row-content">
+            <h3 data-i18n="toolThumbnailTitle">Thumbnail Studio</h3>
+            <p data-i18n="toolThumbnailDesc">Обложки для YouTube, Shorts, Reels со слоями и шаблонами</p>
+          </div>
+          <i class="fa-solid fa-chevron-right tool-row-arrow"></i>
+        </div>
+
+        <div class="tool-row-card" data-open-tool="utility">
+          <div class="tool-row-icon icon-tool"><i class="fa-solid fa-crop-simple"></i></div>
+          <div class="tool-row-content">
+            <h3 data-i18n="toolResizerTitle">Image Resizer</h3>
+            <p data-i18n="toolResizerDesc">Точное изменение размера и сжатие изображений</p>
+          </div>
+          <i class="fa-solid fa-chevron-right tool-row-arrow"></i>
+        </div>
+
+        <div class="tool-row-card" data-open-tool="utility">
+          <div class="tool-row-icon icon-tool"><i class="fa-solid fa-compress"></i></div>
+          <div class="tool-row-content">
+            <h3 data-i18n="toolCompressorTitle">Video Compressor</h3>
+            <p data-i18n="toolCompressorDesc">Сжатие видео без заметной потери качества</p>
+          </div>
+          <i class="fa-solid fa-chevron-right tool-row-arrow"></i>
+        </div>
+
+        <div class="tool-row-card" data-open-tool="utility">
+          <div class="tool-row-icon icon-tool"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="tool-row-content">
+            <h3 data-i18n="toolWatermarkTitle">Watermark Studio</h3>
+            <p data-i18n="toolWatermarkDesc">Текстовые и графические водяные знаки для защиты контента</p>
+          </div>
+          <i class="fa-solid fa-chevron-right tool-row-arrow"></i>
+        </div>
+
+        <div class="tool-row-card" data-open-tool="utility">
+          <div class="tool-row-icon icon-tool"><i class="fa-solid fa-eye-dropper"></i></div>
+          <div class="tool-row-content">
+            <h3 data-i18n="toolColorPickerTitle">Color Picker</h3>
+            <p data-i18n="toolColorPickerDesc">Пипетка цветов из фото, HEX/RGB и готовые палитры</p>
+          </div>
+          <i class="fa-solid fa-chevron-right tool-row-arrow"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: PROJECTS -->
+    <section id="screen-projects" class="screen">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-folder-open"></i>
+          <span data-i18n="navProjects">Проекты</span>
+        </div>
+      </div>
+      <div id="fullProjectsList" class="tools-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- SCREEN 4: SETTINGS -->
+    <section id="screen-settings" class="screen">
+      <div class="editor-topbar">
+        <div class="editor-title">
+          <i class="fa-solid fa-gear"></i>
+          <span data-i18n="settingsHeader">Настройки</span>
+        </div>
+        <button class="icon-btn" data-action="back"><i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-item">
+          <div class="settings-label">
+            <h4 data-i18n="settingsTheme">Тема оформления</h4>
+            <p>Light / Dark mode</p>
+          </div>
+          <select id="settingThemeSelect" class="select-input" style="width: 140px;">
+            <option value="dark" data-i18n="themeDark">Тёмная</option>
+            <option value="light" data-i18n="themeLight">Светлая</option>
+          </select>
+        </div>
+
+        <div class="settings-item">
+          <div class="settings-label">
+            <h4 data-i18n="settingsLanguage">Язык приложения</h4>
+            <p>Тіл таңдау / Language</p>
+          </div>
+          <select id="settingLangSelect" class="select-input" style="width: 140px;">
+            <option value="kk">Қазақша</option>
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-item" style="flex-direction: column; align-items: stretch; gap: 10px;">
+          <div class="settings-label">
+            <h4 data-i18n="settingsAiEngine">ИИ-движок и Сервер</h4>
+            <p>Выбор источника нейросетей</p>
+          </div>
+          <select id="settingAiModeSelect" class="select-input">
+            <option value="local" data-i18n="aiModeLocal">Локальный (On-Device Offline)</option>
+            <option value="server" data-i18n="aiModeServer">Гибридный с FastAPI сервером</option>
+          </select>
+          <div class="form-group">
+            <label class="form-label" data-i18n="serverUrlLabel">URL FastAPI Backend</label>
+            <input type="text" id="settingBackendUrl" class="text-input" value="http://localhost:8000">
+          </div>
+          <button id="btnTestBackend" class="btn-secondary">
+            <i class="fa-solid fa-network-wired"></i>
+            <span data-i18n="testConnection">Проверить связь с сервером</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-item">
+          <div class="settings-label">
+            <h4>Mildy by PALIMSON Group</h4>
+            <p data-i18n="version">Версия: 1.0.0 (Release Ready)</p>
+            <p data-i18n="googlePlayReady">Подготовлен для публикации в Google Play</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: SUBTITLES STUDIO -->
+    <section id="screen-subtitles" class="screen">
+      <div class="editor-topbar">
+        <button class="icon-btn" data-action="back"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="editor-title">
+          <i class="fa-solid fa-closed-captioning"></i>
+          <span data-i18n="toolSubtitlesTitle">Автосубтитры</span>
+        </div>
+        <button class="icon-btn" onclick="window.subtitlesStudio.exportBurnedVideo()" title="Export MP4">
+          <i class="fa-solid fa-download"></i>
+        </button>
+      </div>
+
+      <!-- Video Player with Real-Time Subtitle Overlay -->
+      <div class="editor-preview-container">
+        <video id="subVideoPlayer" class="editor-video" playsinline controls></video>
+        <div id="subOverlayBox" class="subtitle-overlay-box"></div>
+      </div>
+
+      <div class="actions-row" style="margin-bottom: 12px;">
+        <input type="file" id="subVideoInput" accept="video/*" style="display:none;">
+        <button class="btn-secondary" onclick="document.getElementById('subVideoInput').click()">
+          <i class="fa-solid fa-folder-open"></i>
+          <span data-i18n="importVideo">Выбрать видео</span>
+        </button>
+        <button class="btn-secondary" onclick="window.subtitlesStudio.loadSampleVideo()">
+          <i class="fa-solid fa-play"></i>
+          <span data-i18n="sampleVideo">Демо видео</span>
+        </button>
+      </div>
+
+      <div class="editor-panel">
+        <div class="actions-row">
+          <select id="subLangSelect" class="select-input">
+            <option value="auto" data-i18n="langAuto">Автоопределение</option>
+            <option value="kk" data-i18n="langKk">Қазақша</option>
+            <option value="ru" data-i18n="langRu" selected>Русский</option>
+            <option value="en" data-i18n="langEn">English</option>
+          </select>
+          <button id="btnTranscribe" class="btn-primary" onclick="window.subtitlesStudio.runAutoTranscribe()">
+            <i class="fa-solid fa-microphone-lines"></i>
+            <span data-i18n="startTranscribe">Распознать речь</span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="subtitleStyle">Стиль субтитров</label>
+          <select id="subStyleSelect" class="select-input">
+            <option value="viral" data-i18n="styleViral">TikTok Вирусный</option>
+            <option value="beast" data-i18n="styleBeast">MrBeast Bold</option>
+            <option value="clean" data-i18n="styleClean">Minimal Clean</option>
+            <option value="neon" data-i18n="styleNeon">Wine Neon</option>
+            <option value="cyber" data-i18n="styleCyber">Cyber Gold</option>
+          </select>
+        </div>
+
+        <div class="actions-row">
+          <div class="form-group">
+            <label class="form-label" data-i18n="subPosition">Позиция</label>
+            <select id="subPosSelect" class="select-input">
+              <option value="bottom" data-i18n="posBottom">Снизу</option>
+              <option value="center" data-i18n="posCenter">По центру</option>
+              <option value="top" data-i18n="posTop">Сверху</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">
+              <span data-i18n="subFontSize">Размер</span>
+              <span id="subFontSizeVal">24px</span>
+            </label>
+            <input type="range" id="subFontSizeSlider" class="slider-input" min="14" max="48" value="24">
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <div class="form-group">
+            <label class="form-label" data-i18n="subHighlightColor">Акцент слова</label>
+            <input type="color" id="subHlColor" class="select-input" value="#FFE600" style="padding: 2px 4px; height: 40px;">
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="subTextColor">Цвет текста</label>
+            <input type="color" id="subTextColor" class="select-input" value="#FFFFFF" style="padding: 2px 4px; height: 40px;">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="section-title-wrap" style="margin: 4px 0;">
+            <label class="form-label" data-i18n="subTimeline">Редактор субтитров</label>
+            <button class="btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="window.subtitlesStudio.addSubtitleLine()" data-i18n="addSubtitleLine">+ Добавить строку</button>
+          </div>
+          <div id="subTimelineList" class="sub-list">
+            <!-- Timeline lines -->
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button class="btn-secondary" onclick="window.subtitlesStudio.exportSRT()">
+            <i class="fa-solid fa-file-lines"></i>
+            <span data-i18n="exportSrt">Экспорт SRT</span>
+          </button>
+          <button class="btn-secondary" onclick="window.subtitlesStudio.exportVTT()">
+            <i class="fa-solid fa-file-code"></i>
+            <span data-i18n="exportVtt">Экспорт VTT</span>
+          </button>
+        </div>
+
+        <button class="btn-primary" onclick="window.subtitlesStudio.exportBurnedVideo()">
+          <i class="fa-solid fa-film"></i>
+          <span data-i18n="exportVideo">Экспорт видео (MP4)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 6: PHOTOFIX STUDIO -->
+    <section id="screen-photofix" class="screen">
+      <div class="editor-topbar">
+        <button class="icon-btn" data-action="back"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="editor-title">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span data-i18n="toolPhotoFixTitle">PhotoFix</span>
+        </div>
+        <button class="icon-btn" onclick="window.photoFixStudio.exportPhoto('png')" title="Export PNG">
+          <i class="fa-solid fa-download"></i>
+        </button>
+      </div>
+
+      <!-- Photo Canvas Preview -->
+      <div class="editor-preview-container">
+        <canvas id="photoCanvas" class="editor-canvas"></canvas>
+      </div>
+
+      <div class="actions-row" style="margin-bottom: 12px;">
+        <input type="file" id="photoFileInput" accept="image/*" style="display:none;">
+        <button class="btn-secondary" onclick="document.getElementById('photoFileInput').click()">
+          <i class="fa-solid fa-image"></i>
+          <span data-i18n="importImage">Выбрать фото</span>
+        </button>
+        <button class="btn-secondary" onclick="window.photoFixStudio.loadSamplePortrait()">
+          <i class="fa-solid fa-user"></i>
+          <span data-i18n="sampleImage">Демо фото</span>
+        </button>
+      </div>
+
+      <div class="editor-panel">
+        <div class="actions-row">
+          <button id="btnRemoveBg" class="btn-primary" onclick="window.photoFixStudio.removeBackground()">
+            <i class="fa-solid fa-user-xmark"></i>
+            <span data-i18n="removeBackgroundBtn">Удалить фон (AI)</span>
+          </button>
+          <button id="btnAiUpscale" class="btn-secondary" onclick="window.photoFixStudio.upscalePhoto()">
+            <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+            <span data-i18n="aiUpscale">2x AI Upscale</span>
+          </button>
+        </div>
+
+        <!-- Background Replacement Modes -->
+        <div class="form-group">
+          <label class="form-label" data-i18n="tabBgRemove">Замена фона</label>
+          <div class="editor-tabs">
+            <button class="tab-btn active" data-bg-mode="transparent" data-i18n="bgTransparent">Прозрачный</button>
+            <button class="tab-btn" data-bg-mode="color" data-i18n="bgColor">Цвет</button>
+            <button class="tab-btn" data-bg-mode="gradient" data-i18n="bgGradient">Градиент</button>
+            <button class="tab-btn" data-bg-mode="blur" data-i18n="bgBlur">Размытие</button>
+          </div>
+          <input type="color" id="photoBgColorInput" class="select-input" value="#800020" style="margin-top: 6px; height: 38px; padding: 2px;">
+        </div>
+
+        <!-- Adjustments -->
+        <div class="form-group">
+          <div class="section-title-wrap" style="margin: 2px 0;">
+            <label class="form-label" data-i18n="tabAdjust">Коррекция изображения</label>
+            <button class="btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="window.photoFixStudio.autoColorCorrect()" data-i18n="autoColorBtn">Авто-цвет</button>
+          </div>
+
+          <div class="slider-row">
+            <span class="slider-value" style="text-align: left; min-width: 90px;" data-i18n="brightness">Яркость</span>
+            <input type="range" id="sliderBrightness" class="slider-input" min="-100" max="100" value="0">
+            <span id="valBrightness" class="slider-value">0</span>
+          </div>
+
+          <div class="slider-row">
+            <span class="slider-value" style="text-align: left; min-width: 90px;" data-i18n="contrast">Контраст</span>
+            <input type="range" id="sliderContrast" class="slider-input" min="-100" max="100" value="0">
+            <span id="valContrast" class="slider-value">0</span>
+          </div>
+
+          <div class="slider-row">
+            <span class="slider-value" style="text-align: left; min-width: 90px;" data-i18n="saturation">Насыщенность</span>
+            <input type="range" id="sliderSaturation" class="slider-input" min="-100" max="100" value="0">
+            <span id="valSaturation" class="slider-value">0</span>
+          </div>
+
+          <div class="slider-row">
+            <span class="slider-value" style="text-align: left; min-width: 90px;" data-i18n="temperature">Температура</span>
+            <input type="range" id="sliderTemperature" class="slider-input" min="-100" max="100" value="0">
+            <span id="valTemperature" class="slider-value">0</span>
+          </div>
+
+          <div class="slider-row">
+            <span class="slider-value" style="text-align: left; min-width: 90px;" data-i18n="sharpness">Резкость</span>
+            <input type="range" id="sliderSharpness" class="slider-input" min="0" max="100" value="0">
+            <span id="valSharpness" class="slider-value">0</span>
+          </div>
+        </div>
+
+        <!-- Crop & Rotate -->
+        <div class="form-group">
+          <label class="form-label" data-i18n="tabCrop">Обрезка и трансформация</label>
+          <div class="editor-tabs" style="margin-bottom: 8px;">
+            <button class="tab-btn" onclick="window.photoFixStudio.setCropRatio('free')" data-i18n="cropFree">Свободная</button>
+            <button class="tab-btn" onclick="window.photoFixStudio.setCropRatio('1:1')">1:1</button>
+            <button class="tab-btn" onclick="window.photoFixStudio.setCropRatio('4:5')">4:5</button>
+            <button class="tab-btn" onclick="window.photoFixStudio.setCropRatio('16:9')">16:9</button>
+            <button class="tab-btn" onclick="window.photoFixStudio.setCropRatio('9:16')">9:16</button>
+          </div>
+          <div class="actions-row">
+            <button class="btn-secondary" onclick="window.photoFixStudio.rotate90()" data-i18n="rotateLeft"><i class="fa-solid fa-rotate-right"></i> 90°</button>
+            <button class="btn-secondary" onclick="window.photoFixStudio.toggleFlipH()" data-i18n="flipH"><i class="fa-solid fa-arrows-left-right"></i> Отразить</button>
+          </div>
+        </div>
+
+        <!-- Export Buttons -->
+        <div class="actions-row">
+          <button class="btn-primary" onclick="window.photoFixStudio.exportPhoto('png')">
+            <i class="fa-solid fa-file-image"></i>
+            <span data-i18n="exportPng">Экспорт PNG</span>
+          </button>
+          <button class="btn-secondary" onclick="window.photoFixStudio.exportPhoto('jpg')">
+            <i class="fa-solid fa-image"></i>
+            <span data-i18n="exportJpg">Экспорт JPG</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 7: VIDEO TOOLS STUDIO -->
+    <section id="screen-videotools" class="screen">
+      <div class="editor-topbar">
+        <button class="icon-btn" data-action="back"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="editor-title">
+          <i class="fa-solid fa-video"></i>
+          <span data-i18n="toolVideoToolsTitle">Видео инструменты</span>
+        </div>
+        <button class="icon-btn" onclick="window.videoToolsStudio.exportVideo()" title="Export MP4">
+          <i class="fa-solid fa-download"></i>
+        </button>
+      </div>
+
+      <div id="vtPreviewContainer" class="editor-preview-container">
+        <video id="vtVideoPlayer" class="editor-video" playsinline controls></video>
+        <div id="vtOverlayPreview" style="position: absolute; bottom: 15%; width: 100%; text-align: center; color: #fff; font-size: 22px; font-weight: 800; text-shadow: 0 2px 8px #000; pointer-events: none; display:none;"></div>
+      </div>
+
+      <div class="actions-row" style="margin-bottom: 12px;">
+        <input type="file" id="vtVideoInput" accept="video/*" style="display:none;">
+        <button class="btn-secondary" onclick="document.getElementById('vtVideoInput').click()">
+          <i class="fa-solid fa-folder-open"></i>
+          <span data-i18n="importVideo">Выбрать видео</span>
+        </button>
+        <button class="btn-secondary" onclick="window.videoToolsStudio.loadSampleVideo()">
+          <i class="fa-solid fa-play"></i>
+          <span data-i18n="sampleVideo">Демо видео</span>
+        </button>
+      </div>
+
+      <div class="editor-panel">
+        <div class="form-group">
+          <label class="form-label" data-i18n="aspectRatio">Формат кадра</label>
+          <select id="vtAspectSelect" class="select-input">
+            <option value="original" data-i18n="aspectOriginal">Исходное</option>
+            <option value="9:16" data-i18n="aspect916" selected>9:16 (TikTok/Shorts/Reels)</option>
+            <option value="16:9" data-i18n="aspect169">16:9 (YouTube)</option>
+            <option value="1:1" data-i18n="aspect11">1:1 (Квадрат)</option>
+            <option value="4:5" data-i18n="aspect45">4:5 (Лента Instagram)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="trimVideo">Обрезка по времени (сек)</label>
+          <div class="actions-row">
+            <input type="number" id="vtTrimStart" class="text-input" placeholder="0.0" step="0.1">
+            <input type="number" id="vtTrimEnd" class="text-input" placeholder="10.0" step="0.1">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="videoSpeed">Скорость воспроизведения</label>
+          <div class="editor-tabs">
+            <button class="tab-btn" data-vt-speed="0.5">0.5x</button>
+            <button class="tab-btn active" data-vt-speed="1.0">1.0x</button>
+            <button class="tab-btn" data-vt-speed="1.25">1.25x</button>
+            <button class="tab-btn" data-vt-speed="1.5">1.5x</button>
+            <button class="tab-btn" data-vt-speed="2.0">2.0x</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span data-i18n="volumeLevel">Громкость звука</span>
+            <span id="vtVolumeVal">100%</span>
+          </label>
+          <div class="slider-row">
+            <input type="range" id="vtVolumeSlider" class="slider-input" min="0" max="1" step="0.05" value="1">
+            <button id="vtMuteToggle" class="btn-secondary" style="padding: 6px 10px;" data-i18n="muteOriginal"><i class="fa-solid fa-volume-xmark"></i></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="addTextOverlay">Текст поверх видео</label>
+          <input type="text" id="vtOverlayTextInput" class="text-input" data-i18n-placeholder="textOverlayPlaceholder" placeholder="Введите текст...">
+        </div>
+
+        <div class="actions-row">
+          <button class="btn-secondary" onclick="window.videoToolsStudio.grabFrame()">
+            <i class="fa-solid fa-camera"></i>
+            <span data-i18n="extractFrameBtn">Сохранить кадр</span>
+          </button>
+          <button class="btn-secondary" onclick="window.videoToolsStudio.extractAudio()">
+            <i class="fa-solid fa-music"></i>
+            <span data-i18n="extractAudioBtn">Извлечь аудио</span>
+          </button>
+        </div>
+
+        <button class="btn-primary" onclick="window.videoToolsStudio.exportVideo()">
+          <i class="fa-solid fa-film"></i>
+          <span data-i18n="exportVideo">Экспорт видео (MP4)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 8: THUMBNAIL STUDIO -->
+    <section id="screen-thumbnail" class="screen">
+      <div class="editor-topbar">
+        <button class="icon-btn" data-action="back"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="editor-title">
+          <i class="fa-solid fa-image"></i>
+          <span data-i18n="toolThumbnailTitle">Thumbnail Studio</span>
+        </div>
+        <button class="icon-btn" onclick="window.thumbnailStudio.exportThumbnail('png')" title="Export PNG">
+          <i class="fa-solid fa-download"></i>
+        </button>
+      </div>
+
+      <div class="editor-preview-container">
+        <canvas id="thumbCanvas" class="editor-canvas" style="cursor: move;"></canvas>
+      </div>
+
+      <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 10px;" data-i18n="gestureHelp">
+        Перетаскивайте, масштабируйте и вращайте элементы прямо на холсте!
+      </p>
+
+      <div class="editor-panel">
+        <div class="actions-row">
+          <div class="form-group">
+            <label class="form-label" data-i18n="thumbCanvasSize">Формат холста</label>
+            <select id="thumbPresetSelect" class="select-input">
+              <option value="yt" data-i18n="thumbPresetYt">YouTube 16:9 (1280x720)</option>
+              <option value="shorts" data-i18n="thumbPresetShorts">Shorts/Reels 9:16</option>
+              <option value="square" data-i18n="thumbPresetSquare">Square 1:1</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="templates">Шаблон</label>
+            <select id="thumbTemplateSelect" class="select-input">
+              <option value="gaming" data-i18n="templateGaming">Игровой стрим</option>
+              <option value="tech" data-i18n="templateTech">Обзор гаджетов</option>
+              <option value="vlog" data-i18n="templateVlog">Яркий Влог</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button id="btnAddTextLayer" class="btn-secondary" data-i18n="addLayerText">+ Текст</button>
+          <input type="file" id="thumbImageLayerInput" accept="image/*" style="display:none;">
+          <button id="btnAddImageLayer" class="btn-secondary" data-i18n="addLayerImage">+ Фото / Стикер</button>
+        </div>
+
+        <div class="actions-row">
+          <button id="btnAddBadgeLayer" class="btn-secondary" data-i18n="addLayerBadge">+ Бейдж</button>
+          <button class="btn-secondary" onclick="window.thumbnailStudio.removeSelectedLayerBg()">
+            <i class="fa-solid fa-user-xmark"></i>
+            <span>Удалить фон слоя</span>
+          </button>
+        </div>
+
+        <!-- Selected Element Editor -->
+        <div class="form-group">
+          <label class="form-label">Редактирование выбранного слоя</label>
+          <input type="text" id="thumbSelectedText" class="text-input" placeholder="Текст слоя...">
+          <div class="actions-row" style="margin-top: 6px;">
+            <div class="form-group">
+              <label class="form-label">Размер / Масштаб</label>
+              <input type="range" id="thumbTextSizeSlider" class="slider-input" min="20" max="140" value="68">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Цвет текста</label>
+              <input type="color" id="thumbTextColorInput" class="select-input" value="#FFFFFF" style="height: 38px; padding: 2px;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer Management Panel -->
+        <div class="form-group">
+          <div class="section-title-wrap" style="margin: 2px 0;">
+            <label class="form-label" data-i18n="layerManager">Слои</label>
+            <div style="display:flex; gap: 6px;">
+              <button class="icon-btn" style="width:28px;height:28px;font-size:11px;" onclick="window.thumbnailStudio.bringForward()" title="Forward"><i class="fa-solid fa-arrow-up"></i></button>
+              <button class="icon-btn" style="width:28px;height:28px;font-size:11px;" onclick="window.thumbnailStudio.sendBackward()" title="Backward"><i class="fa-solid fa-arrow-down"></i></button>
+              <button class="icon-btn" style="width:28px;height:28px;font-size:11px;" onclick="window.thumbnailStudio.duplicateSelected()" title="Duplicate"><i class="fa-solid fa-copy"></i></button>
+            </div>
+          </div>
+          <div id="thumbLayersList" class="layers-list"></div>
+        </div>
+
+        <button class="btn-primary" onclick="window.thumbnailStudio.exportThumbnail('png')">
+          <i class="fa-solid fa-download"></i>
+          <span>Сохранить готовую обложку (PNG)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 9: UTILITY TOOLS -->
+    <section id="screen-utility" class="screen">
+      <div class="editor-topbar">
+        <button class="icon-btn" data-action="back"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="editor-title">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+          <span>Дополнительные инструменты</span>
+        </div>
+      </div>
+
+      <!-- 1. Color Picker -->
+      <div class="editor-panel" style="margin-bottom: 14px;">
+        <h3 class="section-title"><i class="fa-solid fa-eye-dropper"></i> <span data-i18n="toolColorPickerTitle">Color Picker</span></h3>
+        <p style="font-size:11px;color:var(--text-muted);">Интерактивная пипетка цвета из фотографий и сохранённые палитры</p>
+        <canvas id="colorPickerCanvas" style="width: 100%; height: 160px; border-radius: var(--radius-md); border: 1px solid var(--border-color); cursor: crosshair;"></canvas>
+        <input type="file" id="colorPickerFileInput" accept="image/*" style="display:none;">
+        <button class="btn-secondary" onclick="document.getElementById('colorPickerFileInput').click()">
+          <i class="fa-solid fa-image"></i> <span>Загрузить фото для пипетки</span>
+        </button>
+        <div id="colorPreviewBox" class="color-preview-box" style="background:#FF2A54;">#FF2A54</div>
+        <div class="actions-row">
+          <div class="form-group">
+            <span style="font-size:11px;color:var(--text-muted);">HEX Код</span>
+            <h4 id="colorHexVal" style="font-size:14px;font-weight:700;">#FF2A54</h4>
+          </div>
+          <div class="form-group">
+            <span style="font-size:11px;color:var(--text-muted);">RGB</span>
+            <h4 id="colorRgbVal" style="font-size:14px;font-weight:700;">rgb(255, 42, 84)</h4>
+          </div>
+        </div>
+        <button id="btnSaveColorPalette" class="btn-secondary"><i class="fa-solid fa-bookmark"></i> <span>Сохранить в палитру</span></button>
+        <div id="paletteList" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;"></div>
+      </div>
+
+      <!-- 2. Watermark Studio -->
+      <div class="editor-panel" style="margin-bottom: 14px;">
+        <h3 class="section-title"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="toolWatermarkTitle">Watermark Studio</span></h3>
+        <canvas id="watermarkCanvas" style="width:100%;height:160px;border-radius:var(--radius-md);border:1px solid var(--border-color);"></canvas>
+        <input type="file" id="wmFileInput" accept="image/*" style="display:none;">
+        <button class="btn-secondary" onclick="document.getElementById('wmFileInput').click()">
+          <i class="fa-solid fa-image"></i> <span>Загрузить фото для водяного знака</span>
+        </button>
+        <input type="text" id="wmTextInput" class="text-input" value="© Mildy Creator">
+        <div class="actions-row">
+          <select id="wmPositionSelect" class="select-input">
+            <option value="bottom-right">Снизу справа</option>
+            <option value="top-left">Сверху слева</option>
+            <option value="center">По центру</option>
+          </select>
+          <input type="range" id="wmOpacitySlider" class="slider-input" min="10" max="100" value="70">
+        </div>
+        <button id="btnExportWatermark" class="btn-primary"><i class="fa-solid fa-download"></i> <span>Скачать с водяным знаком</span></button>
+      </div>
+
+      <!-- 3. Image Resizer -->
+      <div class="editor-panel" style="margin-bottom: 14px;">
+        <h3 class="section-title"><i class="fa-solid fa-crop-simple"></i> <span data-i18n="toolResizerTitle">Image Resizer</span></h3>
+        <input type="file" id="resizerFileInput" accept="image/*" style="display:none;">
+        <button class="btn-secondary" onclick="document.getElementById('resizerFileInput').click()">
+          <i class="fa-solid fa-image"></i> <span>Выбрать фото для изменения размера</span>
+        </button>
+        <p id="resizerOriginalInfo" style="font-size:11px;color:var(--text-muted);"></p>
+        <div class="actions-row">
+          <input type="number" id="resizerWidth" class="text-input" placeholder="Ширина (px)" value="1920">
+          <input type="number" id="resizerHeight" class="text-input" placeholder="Высота (px)" value="1080">
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span>Качество JPEG</span></label>
+          <input type="range" id="resizerQualitySlider" class="slider-input" min="20" max="100" value="90">
+        </div>
+        <button id="btnApplyResize" class="btn-primary"><i class="fa-solid fa-download"></i> <span>Изменить размер & Скачать</span></button>
+      </div>
+
+      <!-- 4. Video Compressor -->
+      <div class="editor-panel">
+        <h3 class="section-title"><i class="fa-solid fa-compress"></i> <span data-i18n="toolCompressorTitle">Video Compressor</span></h3>
+        <select id="compResSelect" class="select-input">
+          <option value="1080p">1080p Full HD (Оптимизированный битрейт)</option>
+          <option value="720p" selected>720p HD (Рекомендуется для Reels/Shorts)</option>
+          <option value="480p">480p (Максимальное сжатие)</option>
+        </select>
+        <button id="btnStartCompress" class="btn-primary"><i class="fa-solid fa-play"></i> <span>Запустить сжатие</span></button>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-screen="home">
+        <i class="fa-solid fa-house"></i>
+        <span data-i18n="navHome">Главная</span>
+      </button>
+      <button class="nav-item" data-screen="tools">
+        <i class="fa-solid fa-toolbox"></i>
+        <span data-i18n="navTools">Инструменты</span>
+      </button>
+      <button class="nav-item" data-screen="projects">
+        <i class="fa-solid fa-folder-open"></i>
+        <span data-i18n="navProjects">Проекты</span>
+      </button>
+      <button class="nav-item" data-screen="settings">
+        <i class="fa-solid fa-sliders"></i>
+        <span data-i18n="navSettings">Настройки</span>
+      </button>
+    </nav>
+
+    <!-- Toast Notification -->
+    <div id="toast"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/ai-engine.js"></script>
+  <script src="js/subtitles.js"></script>
+  <script src="js/photofix.js"></script>
+  <script src="js/videotools.js"></script>
+  <script src="js/thumbnail.js"></script>
+  <script src="js/utility-tools.js"></script>
+  <script src="js/app.js"></script>
+</body>
 </html>
