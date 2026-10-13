@@ -1,0 +1,10 @@
+<resources>
+    <color name="mildy_bg_primary">#0D080B</color>
+    <color name="mildy_bg_card">#20111B</color>
+    <color name="mildy_burgundy">#800020</color>
+    <color name="mildy_crimson">#B11226</color>
+    <color name="mildy_red">#E50914</color>
+    <color name="mildy_bright_red">#FF2A54</color>
+    <color name="mildy_text_primary">#FFFFFF</color>
+    <color name="mildy_text_secondary">#C8B8C2</color>
+</resources>

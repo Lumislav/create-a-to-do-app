@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Mildy</string>
+    <string name="company_name">PALIMSON Group</string>
+    <string name="tagline">Контент авторларына арналған студия</string>
+    <string name="greeting">Сәлем, Креатор!</string>
+    <string name="greeting_sub">Бүгін не жасаймыз?</string>
+    <string name="new_project">Жаңа жоба</string>
+    <string name="recent_projects">Соңғы жобалар</string>
+    <string name="all_tools">Барлық құралдар</string>
+    <string name="quick_actions">Жылдам әрекеттер</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Басты</string>
+    <string name="nav_tools">Құралдар</string>
+    <string name="nav_projects">Жобалар</string>
+    <string name="nav_settings">Баптаулар</string>
+
+    <!-- Tools -->
+    <string name="tool_subtitles">Автосубтитрлер</string>
+    <string name="tool_subtitles_desc">Сөздік синхрондау, стильдер және анимациясы бар ақылды субтитрлер</string>
+    <string name="tool_photofix">PhotoFix</string>
+    <string name="tool_photofix_desc">Фонды өшіру, сапаны арттыру, түс түзету және қию</string>
+    <string name="tool_video_tools">Бейне құралдары</string>
+    <string name="tool_video_tools_desc">Қию, 9:16/16:9 өлшемдері, дыбыс алу, кадр сақтау және жылдамдық</string>
+    <string name="tool_thumbnail">Thumbnail Studio</string>
+    <string name="tool_thumbnail_desc">Қабаттар мен үлгілері бар YouTube, Shorts, Reels мұқабалары</string>
+    <string name="tool_resizer">Image Resizer</string>
+    <string name="tool_compressor">Video Compressor</string>
+    <string name="tool_watermark">Watermark Studio</string>
+    <string name="tool_color_picker">Color Picker</string>
+    <string name="tool_audio_extract">Audio Extractor</string>
+    <string name="tool_presets">Creator Presets</string>
+
+    <!-- Actions -->
+    <string name="action_save">Сақтау</string>
+    <string name="action_export">Экспорттау</string>
+    <string name="action_export_video">Бейнені экспорттау (MP4)</string>
+    <string name="action_export_srt">SRT жүктеу</string>
+    <string name="action_export_vtt">VTT жүктеу</string>
+    <string name="action_export_png">PNG жүктеу</string>
+    <string name="action_export_jpg">JPG жүктеу</string>
+    <string name="action_apply">Қолдану</string>
+    <string name="action_cancel">Болдырмау</string>
+    <string name="action_delete">Өшіру</string>
+    <string name="action_transcribe">Дауысты тану</string>
+    <string name="action_remove_bg">Фонды өшіру (AI)</string>
+    <string name="action_ai_upscale">2x AI Upscale</string>
+    <string name="action_auto_color">Авто-түс</string>
+
+    <!-- Settings -->
+    <string name="settings_theme">Интерфейс тақырыбы</string>
+    <string name="settings_language">Қолданба тілі</string>
+    <string name="settings_ai_mode">ЖИ-қозғалтқыш режимі</string>
+    <string name="settings_backend_url">FastAPI Backend сілтемесі</string>
+    <string name="settings_test_connection">Сервер байланысын тексеру</string>
+    <string name="version_info">Нұсқа: 1.0.0 (Release Ready)</string>
+</resources>
