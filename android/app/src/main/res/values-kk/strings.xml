@@ -46,12 +46,34 @@
     <string name="action_remove_bg">Фонды өшіру (AI)</string>
     <string name="action_ai_upscale">2x AI Upscale</string>
     <string name="action_auto_color">Авто-түс</string>
+    <string name="action_import_media">Файлды таңдау</string>
+    <string name="action_add_line">+ Субтитр жолын қосу</string>
+
+    <!-- Editors & Controls -->
+    <string name="bg_transparent">Мөлдір</string>
+    <string name="bg_color">Түс</string>
+    <string name="bg_gradient">Градиент</string>
+    <string name="bg_blur">Бұлыңғырлау</string>
+    <string name="brightness">Жарықтық</string>
+    <string name="contrast">Контраст</string>
+    <string name="saturation">Қанықтылық</string>
+    <string name="temperature">Температура</string>
+    <string name="sharpness">Айқындық</string>
+    <string name="aspect_ratio">Кадр пішімі</string>
+    <string name="trim_video">Уақыт бойынша қию</string>
+    <string name="speed">Ойнату жылдамдығы</string>
+    <string name="volume">Дыбыс деңгейі</string>
+    <string name="templates">Үлгілер</string>
+    <string name="layers">Қабаттар</string>
 
     <!-- Settings -->
     <string name="settings_theme">Интерфейс тақырыбы</string>
+    <string name="settings_theme_dark">Күңгірт тақырып</string>
+    <string name="settings_theme_light">Ашық тақырып</string>
     <string name="settings_language">Қолданба тілі</string>
     <string name="settings_ai_mode">ЖИ-қозғалтқыш режимі</string>
     <string name="settings_backend_url">FastAPI Backend сілтемесі</string>
     <string name="settings_test_connection">Сервер байланысын тексеру</string>
     <string name="version_info">Нұсқа: 1.0.0 (Release Ready)</string>
+    <string name="google_play_ready">Google Play жарияланымына дайын</string>
 </resources>
