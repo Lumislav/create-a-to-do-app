@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Mildy</string>
+    <string name="company_name">PALIMSON Group</string>
+    <string name="tagline">Студия для авторов контента</string>
+    <string name="greeting">Привет, Креатор!</string>
+    <string name="greeting_sub">Что создадим сегодня?</string>
+    <string name="new_project">Новый проект</string>
+    <string name="recent_projects">Недавние проекты</string>
+    <string name="all_tools">Все инструменты</string>
+    <string name="quick_actions">Быстрые действия</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Главная</string>
+    <string name="nav_tools">Инструменты</string>
+    <string name="nav_projects">Проекты</string>
+    <string name="nav_settings">Настройки</string>
+
+    <!-- Tools -->
+    <string name="tool_subtitles">Автосубтитры</string>
+    <string name="tool_subtitles_desc">Умные субтитры с синхронизацией по словам, стилями и анимацией</string>
+    <string name="tool_photofix">PhotoFix</string>
+    <string name="tool_photofix_desc">Удаление фона, улучшение деталей, цветокоррекция и обрезка</string>
+    <string name="tool_video_tools">Видео инструменты</string>
+    <string name="tool_video_tools_desc">Обрезка, соотношение 9:16/16:9, извлечение звука, кадры и скорость</string>
+    <string name="tool_thumbnail">Thumbnail Studio</string>
+    <string name="tool_thumbnail_desc">Обложки для YouTube, Shorts, Reels со слоями и шаблонами</string>
+    <string name="tool_resizer">Image Resizer</string>
+    <string name="tool_compressor">Video Compressor</string>
+    <string name="tool_watermark">Watermark Studio</string>
+    <string name="tool_color_picker">Color Picker</string>
+    <string name="tool_audio_extract">Audio Extractor</string>
+    <string name="tool_presets">Creator Presets</string>
+
+    <!-- Actions -->
+    <string name="action_save">Сохранить</string>
+    <string name="action_export">Экспорт</string>
+    <string name="action_export_video">Экспорт видео (MP4)</string>
+    <string name="action_export_srt">Экспорт SRT</string>
+    <string name="action_export_vtt">Экспорт VTT</string>
+    <string name="action_export_png">Экспорт PNG</string>
+    <string name="action_export_jpg">Экспорт JPG</string>
+    <string name="action_apply">Применить</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_transcribe">Распознать речь</string>
+    <string name="action_remove_bg">Удалить фон (AI)</string>
+    <string name="action_ai_upscale">2x AI Upscale</string>
+    <string name="action_auto_color">Авто-цвет</string>
+
+    <!-- Settings -->
+    <string name="settings_theme">Тема оформления</string>
+    <string name="settings_language">Язык приложения</string>
+    <string name="settings_ai_mode">ИИ-движок и Сервер</string>
+    <string name="settings_backend_url">URL FastAPI Backend</string>
+    <string name="settings_test_connection">Проверить связь с сервером</string>
+    <string name="version_info">Версия: 1.0.0 (Release Ready)</string>
+</resources>

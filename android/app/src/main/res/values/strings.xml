@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Mildy</string>
+    <string name="company_name">PALIMSON Group</string>
+    <string name="tagline">All-in-One Studio for Creators</string>
+    <string name="greeting">Hey, Creator!</string>
+    <string name="greeting_sub">What are we creating today?</string>
+    <string name="new_project">New Project</string>
+    <string name="recent_projects">Recent Projects</string>
+    <string name="all_tools">All Tools</string>
+    <string name="quick_actions">Quick Actions</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_tools">Tools</string>
+    <string name="nav_projects">Projects</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Tools -->
+    <string name="tool_subtitles">Auto-Subtitles</string>
+    <string name="tool_subtitles_desc">Smart subtitles with word-level sync, custom styles &amp; animations</string>
+    <string name="tool_photofix">PhotoFix</string>
+    <string name="tool_photofix_desc">AI background removal, detail enhancement, color grade &amp; crop</string>
+    <string name="tool_video_tools">Video Tools</string>
+    <string name="tool_video_tools_desc">Trim, 9:16/16:9 crop, audio extractor, frame grabber &amp; speed</string>
+    <string name="tool_thumbnail">Thumbnail Studio</string>
+    <string name="tool_thumbnail_desc">YouTube, Shorts &amp; Reels thumbnails with layer controls &amp; templates</string>
+    <string name="tool_resizer">Image Resizer</string>
+    <string name="tool_compressor">Video Compressor</string>
+    <string name="tool_watermark">Watermark Studio</string>
+    <string name="tool_color_picker">Color Picker</string>
+    <string name="tool_audio_extract">Audio Extractor</string>
+    <string name="tool_presets">Creator Presets</string>
+
+    <!-- Actions -->
+    <string name="action_save">Save</string>
+    <string name="action_export">Export</string>
+    <string name="action_export_video">Export Video (MP4)</string>
+    <string name="action_export_srt">Export SRT</string>
+    <string name="action_export_vtt">Export VTT</string>
+    <string name="action_export_png">Export PNG</string>
+    <string name="action_export_jpg">Export JPG</string>
+    <string name="action_apply">Apply</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_transcribe">Transcribe Speech</string>
+    <string name="action_remove_bg">Remove Background (AI)</string>
+    <string name="action_ai_upscale">2x AI Upscale</string>
+    <string name="action_auto_color">Auto Color</string>
+
+    <!-- Settings -->
+    <string name="settings_theme">Theme Mode</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_ai_mode">AI Engine Mode</string>
+    <string name="settings_backend_url">FastAPI Backend URL</string>
+    <string name="settings_test_connection">Test Server Connection</string>
+    <string name="version_info">Version: 1.0.0 (Release Ready)</string>
+</resources>
